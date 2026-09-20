@@ -2,8 +2,10 @@ import React from 'react'
 
 function MainPage() {
   return (
-    <div>MainPage</div>
+    <main className='min-h-full'>
+      
+    </main>
   )
 }
 
-export default MainPage
+export default MainPage;
