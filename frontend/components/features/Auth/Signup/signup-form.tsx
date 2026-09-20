@@ -8,21 +8,39 @@ import {
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
 
-export function LoginForm() {
+export function SignupForm() {
   return (
     <form className="flex flex-col gap-6">
       <FieldGroup>
         <div className="flex flex-col gap-1 text-center items-center">
           <h1 className="text-2xl font-medium">
-            Log into <span className="text-red-700">Mini-</span>Feed
+            Signup into <span className="text-red-700">Mini-</span>Feed
           </h1>
         </div>
+        <Field>
+          <FieldLabel htmlFor="username">Username</FieldLabel>
+          <Input
+            id="username"
+            placeholder="Enter your full name"
+            required
+            className="h-10 border-gray-300 focus-visible:border-2 focus-visible:border-red-700"
+          />
+        </Field>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input
             id="email"
             type="email"
-            placeholder="john@example.com"
+            placeholder="Enter your email address"
+            required
+            className="h-10 border-gray-300 focus-visible:border-2 focus-visible:border-red-700"
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="phone-number">Phone number (Optional)</FieldLabel>
+          <Input
+            id="phone-number"
+            placeholder="Enter your phone number"
             required
             className="h-10 border-gray-300 focus-visible:border-2 focus-visible:border-red-700"
           />
@@ -35,6 +53,19 @@ export function LoginForm() {
             id="password"
             type="password"
             required
+            placeholder="Enter your password"
+            className="h-10 border-gray-300 focus-visible:border-2 focus-visible:border-red-700"
+          />
+        </Field>
+        <Field>
+          <div className="flex items-center">
+            <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
+          </div>
+          <Input
+            id="confirm-password"
+            type="password"
+            required
+            placeholder="Confirm your password"
             className="h-10 border-gray-300 focus-visible:border-2 focus-visible:border-red-700"
           />
         </Field>
@@ -44,16 +75,14 @@ export function LoginForm() {
               className="bg-red-700 cursor-pointer w-full h-10 text-base hover:bg-red-800 rounded-3xl"
               type="submit"
             >
-              Login in
+              Sign up
             </Button>
-            <Button
-              className="bg-transparent cursor-pointer w-full h-10 text-black text-base hover:bg-zinc-100 rounded-3xl"
-            >
-              Forgot Password?
+            <Button className="bg-transparent cursor-pointer w-full h-10 text-black text-base hover:bg-zinc-100 rounded-3xl">
+              I already have an account
             </Button>
-            <Field>
-              <FieldSeparator>Or continue with</FieldSeparator>
-            </Field>
+          </Field>
+          <Field>
+            <FieldSeparator>Or continue with</FieldSeparator>
           </Field>
           <Field>
             <Button
@@ -64,11 +93,6 @@ export function LoginForm() {
                 <FcGoogle />
               </span>
               Continue with Google
-            </Button>
-            <Button
-              className="bg-transparent cursor-pointer w-full h-10 text-(--brand-blue) border-(--brand-blue) text-base hover:bg-zinc-100 rounded-3xl"
-            >
-              Create new account
             </Button>
           </Field>
         </div>
