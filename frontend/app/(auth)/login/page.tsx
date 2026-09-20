@@ -18,31 +18,31 @@ export default function LoginPage() {
           </h1>
         </div>
         <div className="relative w-full flex items-center justify-center">
-          <div className="absolute -rotate-8 -translate-x-40 translate-y-5 lg:h-60 lg:w-60">
+          <div className="absolute -rotate-8 -translate-x-40 translate-y-5 ">
             <Image
               src="/images/login1.png"
               alt="login1"
               height={320}
               width={320}
-              className="rounded-2xl shadow-xl border border-gray-200"
+              className="rounded-2xl shadow-xl border border-gray-200 lg:w-60 lg:h-80 lg:object-cover xl:w-90 xl:h-125"
             />
           </div>
-          <div className="absolute z-10 lg:h-60 lg:w-60 ">
+          <div className="absolute z-10 ">
             <Image
               src="/images/login2.png"
               alt="login2"
               height={320}
               width={320}
-              className="rounded-2xl shadow-xl border border-gray-200"
+              className="rounded-2xl shadow-xl border border-gray-200 lg:w-60 lg:h-85 lg:object-cover xl:w-90 xl:h-130"
             />
           </div>
-          <div className="absolute rotate-10 translate-x-60 lg:h-60 lg:w-60 lg:translate-x-40 lg:translate-y-7">
+          <div className="absolute rotate-10 translate-x-60 lg:translate-x-40 lg:translate-y-7">
             <Image
               src="/images/login3.png"
               alt="login3"
               height={320}
               width={320}
-              className="rounded-xl shadow-2xl border border-gray-200"
+              className="rounded-xl shadow-2xl border border-gray-200 lg:w-60 lg:h-80 lg:object-cover xl:w-90 xl:h-125"
             />
           </div>
         </div>
