@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistSans } from "@/public/fonts/font";
 import { Toaster } from "react-hot-toast";
+import Providers from "./provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +14,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${geistSans.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Toaster position="top-center" />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
