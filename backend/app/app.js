@@ -29,22 +29,57 @@ app.get("/posts/:id", async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
+        success: false,
         message: "Invalid post id",
       });
     }
 
     if (!post) {
       return res.status(404).json({
+        success: false,
         message: "The Posts doesn't exist",
       });
     }
 
     return res.status(200).json({
+      success: true,
       message: "Posts fetched successfully",
       data: post,
     });
   } catch (error) {
     return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// CREATE Posts
+app.post("/createPosts", async (req, res) => {
+  try {
+    const { title, description, images } = req.body;
+
+    const post = await postsModel.create({
+      title,
+      description,
+      images,
+    });
+
+    if (!title) {
+      return res.status(400).json({
+        success: false,
+        message: "Title is required",
+      });
+    }
+
+    return res.status(201).json({
+      success: true,
+      message: "Post posted successfully",
+      data: post,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
       message: error.message,
     });
   }
