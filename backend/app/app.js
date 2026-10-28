@@ -100,24 +100,53 @@ app.patch("/posts/:id", async (req, res) => {
       },
       {
         new: true,
-        runValidators: true
+        runValidators: true,
       },
     );
 
     if (!post) {
       return res.status(404).json({
+        success: false,
         message: "Post not found",
       });
     }
 
     return res.status(200).json({
+      success: true,
       message: "Post updated successfully",
       data: post,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
+      success: false,
       message: error.message,
     });
   }
 });
+
+// DELETE Posts
+app.delete("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await postsModel.findByIdAndDelete(id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Invalid post id",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Post deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = app;
