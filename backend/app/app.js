@@ -84,4 +84,40 @@ app.post("/createPosts", async (req, res) => {
     });
   }
 });
+
+// PATCH Posts
+app.patch("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, images } = req.body;
+
+    const post = await postsModel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        images,
+      },
+      {
+        new: true,
+        runValidators: true
+      },
+    );
+
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Post updated successfully",
+      data: post,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+    });
+  }
+});
 module.exports = app;
