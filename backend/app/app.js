@@ -1,5 +1,6 @@
 const express = require("express");
 const postsModel = require("./models/posts.model");
+const userModel = require("./models/user.model");
 
 const app = express();
 app.use(express.json());
@@ -140,6 +141,68 @@ app.delete("/posts/:id", async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Post deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Register User
+app.post("/register", async (req, res) => {
+  try {
+    const { userName, email, password, phoneNumber } = req.body;
+
+    // Validation
+    if (!userName || !email || !password || !phoneNumber) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const existingUser = await userModel.findOne([
+      { email },
+      { userName },
+      { phoneNumber },
+    ]);
+
+    if (existingUser) {
+      if (existingUser.email === email) {
+        return res.status(400).json({
+          success: false,
+          message: "Email already exists",
+        });
+      }
+
+      if (existingUser.userName === userName) {
+        return res.status(400).json({
+          success: false,
+          message: "Username already exists",
+        });
+      }
+
+      if (existingUser.phoneNumber === phoneNumber) {
+        return res.status(400).json({
+          success: false,
+          message: "Phone number already exists",
+        });
+      }
+    }
+
+    const user = await userModel.create({
+      userName,
+      email,
+      password,
+      phoneNumber,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      data: user,
     });
   } catch (error) {
     return res.status(500).json({
