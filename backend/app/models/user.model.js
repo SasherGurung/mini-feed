@@ -4,23 +4,22 @@ const userSchema = new mongoose.Schema(
   {
     userName: {
       type: String,
-      required: true,
+      required: [true, "Username must be provided"],
       unique: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email must be provided"],
       unique: true,
     },
 
     phoneNumber: {
       type: String,
-      required: true,
       unique: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password must be provided"],
     },
     role: {
       type: String,

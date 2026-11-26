@@ -2,6 +2,8 @@ const express = require("express");
 const postsModel = require("./models/posts.model");
 const userModel = require("./models/user.model");
 
+const bcrypt = require("bcryptjs");
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -195,7 +197,7 @@ app.post("/register", async (req, res) => {
     const user = await userModel.create({
       userName,
       email,
-      password,
+      password: bcrypt.hashSync(password, 12),
       phoneNumber,
     });
 
@@ -204,6 +206,44 @@ app.post("/register", async (req, res) => {
       message: "User registered successfully",
       data: user,
     });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Login User
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if ((!email, !password)) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    // Validation
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User with that email is not registered",
+      });
+    }
+
+    const isMatch = bcrypt.compareSync(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid password",
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       success: false,
